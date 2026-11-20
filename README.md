@@ -28,7 +28,7 @@ The cached source is mounted into the container at `/opensbi-src` and this wrapp
 - `build-min/platform/generic/firmware/fw_jump.bin` - minimal image, loaded at `0x80000000`.
 - `build-max/platform/generic/firmware/fw_jump.bin` - maximal image, loaded at `0x80000000`.
 
-`FW_JUMP_OFFSET=0x400000` targets U-Boot at `0x80400000`; `FW_JUMP_FDT_OFFSET=0x2200000` targets the DTB at `0x82200000`. Both variants expose `base,ipi,time` as standard SBI extensions.
+`FW_JUMP_OFFSET=0x400000` targets U-Boot at `0x80400000`; `FW_JUMP_FDT_OFFSET=0x2200000` targets the DTB at `0x82200000`. Both variants expose `base,ipi,time,srst` as standard SBI extensions and register the DTS syscon reset devices (`syscon-reboot`, `syscon-poweroff`).
 
 ## License
 

@@ -15,12 +15,13 @@ The maximal variant uses the full emulator ISA from the Linux README. The SBI fe
 
 ## SBI features
 
-`configs/opensbi_defconfig` enables `SBI_ECALL_TIME` and `SBI_ECALL_IPI` on top of the generic platform's FDT drivers. The resulting firmware reports `base,ipi,time` as standard SBI extensions. The remaining extensions have no role in this kernel configuration:
+`configs/opensbi_defconfig` enables `SBI_ECALL_TIME`, `SBI_ECALL_IPI` and `SBI_ECALL_SRST` on top of the generic platform's FDT drivers. The resulting firmware reports `base,ipi,time,srst` as standard SBI extensions. The remaining extensions have no role in this kernel configuration:
 
 - `RFENCE` and `HSM`: the kernel is UP (`CONFIG_SMP=n`).
-- `SRST`: the DTS supplies `syscon-reboot` and `syscon-poweroff`.
 - `LEGACY` and `DBCN`: the console is the 16550 `earlycon`.
 - `PMU`, `CPPC`, `FWFT`, `VENDOR`, `DBTR`, `SSE`, `MPXY`, `SUSP`.
+
+The DTS supplies `syscon-reboot` and `syscon-poweroff`. `FDT_RESET_SYSCON` depends on `FDT_REGMAP`, so the defconfig enables `FDT_REGMAP` and `FDT_REGMAP_SYSCON` as well; without them Kconfig silently drops the reset driver and the boot print shows `---` for both devices. OpenSBI's generated `*.carray.c` driver lists do not depend on Kconfig, so a defconfig change needs `make clean` before rebuilding to regenerate them.
 
 Both the minimal and maximal Linux images boot to login with this feature set.
 

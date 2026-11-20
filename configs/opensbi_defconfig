@@ -2,12 +2,13 @@
 #
 # The generic-platform FDT drivers present in linux-mmu.dts are enabled:
 # the 16550 at 0x10000000, the CLINT timer/IPI at 0x02000000, the PLIC at
-# 0x0c000000 and the syscon reset at 0x00100000.
+# 0x0c000000 and the syscon reset at 0x00100000. FDT_RESET_SYSCON depends on
+# FDT_REGMAP, so both the regmap core and its syscon backend are enabled.
 #
 # The SBI extensions used by the Linux image are enabled. The kernel is UP
-# (CONFIG_SMP=n), uses the 16550 earlycon, and the DTS supplies
-# syscon-reboot/syscon-poweroff. Both the minimal and maximal images use this
-# feature set.
+# (CONFIG_SMP=n) and uses the 16550 earlycon. SRST is enabled so OpenSBI can
+# service the syscon-reboot/syscon-poweroff nodes in the DTS. Both the minimal
+# and maximal images use this feature set.
 
 CONFIG_PLATFORM_GENERIC=y
 CONFIG_FDT=y
@@ -21,15 +22,17 @@ CONFIG_FDT_IPI=y
 CONFIG_FDT_IPI_MSWI=y
 CONFIG_FDT_IRQCHIP=y
 CONFIG_FDT_IRQCHIP_PLIC=y
+CONFIG_FDT_REGMAP=y
+CONFIG_FDT_REGMAP_SYSCON=y
 CONFIG_FDT_RESET=y
 CONFIG_FDT_RESET_SYSCON=y
 
 CONFIG_SBI_ECALL_TIME=y
 CONFIG_SBI_ECALL_IPI=y
+CONFIG_SBI_ECALL_SRST=y
 
 # CONFIG_SBI_ECALL_RFENCE is not set
 # CONFIG_SBI_ECALL_HSM is not set
-# CONFIG_SBI_ECALL_SRST is not set
 # CONFIG_SBI_ECALL_SUSP is not set
 # CONFIG_SBI_ECALL_PMU is not set
 # CONFIG_SBI_ECALL_DBCN is not set
