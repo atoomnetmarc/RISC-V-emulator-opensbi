@@ -1,0 +1,9 @@
+# Build output
+build/
+build-min/
+build-max/
+
+# Visual Studio Code
+.vscode
+
+__pycache__
