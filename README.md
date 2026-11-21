@@ -1,3 +1,5 @@
+![](opensbi-booting-in-native-emulator.png)
+
 # RISC-V-emulator-opensbi
 
 OpenSBI build wrapper for the [RISC-V emulator](../RISC-V-emulator-Native). The wrapper pins OpenSBI at commit `ed70256dd22c09962d146e433834239825ef0616` in the shared cache and builds two `fw_jump` variants in a container: a minimal ISA build for the lean emulator and a full-ISA build for the maximal image.
